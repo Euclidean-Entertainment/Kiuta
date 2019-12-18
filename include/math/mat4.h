@@ -1,0 +1,215 @@
+/**
+ * 
+ */
+#pragma once
+
+#include <cstdio>
+#include <cstring>
+#include <GL/glew.h>
+
+#include "common/assert.h"
+
+class Mat4 final
+{
+public:
+    Mat4()
+    {
+        memset(m_data, 0, sizeof(GLfloat) * 16);
+    }
+
+    Mat4(GLfloat val)
+    {
+        memset(m_data, val, sizeof(GLfloat) * 16);
+    }
+
+    Mat4(const GLfloat data[4][4])
+    {
+        memcpy(m_data, data, sizeof(GLfloat) * 16);
+    }
+
+    Mat4 operator+(const Mat4& rhs)
+    {
+        Mat4 ret;
+
+        ret.m_data[0][0] = m_data[0][0] + rhs.m_data[0][0];
+        ret.m_data[0][1] = m_data[0][1] + rhs.m_data[0][1];
+        ret.m_data[0][2] = m_data[0][2] + rhs.m_data[0][2];
+        ret.m_data[0][3] = m_data[0][3] + rhs.m_data[0][3];
+
+        ret.m_data[1][0] = m_data[1][0] + rhs.m_data[1][0];
+        ret.m_data[1][1] = m_data[1][1] + rhs.m_data[1][1];
+        ret.m_data[1][2] = m_data[1][2] + rhs.m_data[1][2];
+        ret.m_data[1][3] = m_data[1][3] + rhs.m_data[1][3];
+
+        ret.m_data[2][0] = m_data[2][0] + rhs.m_data[2][0];
+        ret.m_data[2][1] = m_data[2][1] + rhs.m_data[2][1];
+        ret.m_data[2][2] = m_data[2][2] + rhs.m_data[2][2];
+        ret.m_data[2][3] = m_data[2][3] + rhs.m_data[2][3];
+
+        ret.m_data[3][0] = m_data[3][0] + rhs.m_data[3][0];
+        ret.m_data[3][1] = m_data[3][1] + rhs.m_data[3][1];
+        ret.m_data[3][2] = m_data[3][2] + rhs.m_data[3][2];
+        ret.m_data[3][3] = m_data[3][3] + rhs.m_data[3][3];
+
+        return ret;
+    }
+
+    Mat4& operator+=(const Mat4& rhs)
+    {
+        m_data[0][0] += rhs.m_data[0][0];
+        m_data[0][1] += rhs.m_data[0][1];
+        m_data[0][2] += rhs.m_data[0][2];
+        m_data[0][3] += rhs.m_data[0][3];
+
+        m_data[1][0] += rhs.m_data[1][0];
+        m_data[1][1] += rhs.m_data[1][1];
+        m_data[1][2] += rhs.m_data[1][2];
+        m_data[1][3] += rhs.m_data[1][3];
+
+        m_data[2][0] += rhs.m_data[2][0];
+        m_data[2][1] += rhs.m_data[2][1];
+        m_data[2][2] += rhs.m_data[2][2];
+        m_data[2][3] += rhs.m_data[2][3];
+
+        m_data[3][0] += rhs.m_data[3][0];
+        m_data[3][1] += rhs.m_data[3][1];
+        m_data[3][2] += rhs.m_data[3][2];
+        m_data[3][3] += rhs.m_data[3][3];
+
+        return *this;
+    }
+
+    Mat4 operator-(const Mat4& rhs)
+    {
+        Mat4 ret;
+
+        ret.m_data[0][0] = m_data[0][0] - rhs.m_data[0][0];
+        ret.m_data[0][1] = m_data[0][1] - rhs.m_data[0][1];
+        ret.m_data[0][2] = m_data[0][2] - rhs.m_data[0][2];
+        ret.m_data[0][3] = m_data[0][3] - rhs.m_data[0][3];
+
+        ret.m_data[1][0] = m_data[1][0] - rhs.m_data[1][0];
+        ret.m_data[1][1] = m_data[1][1] - rhs.m_data[1][1];
+        ret.m_data[1][2] = m_data[1][2] - rhs.m_data[1][2];
+        ret.m_data[1][3] = m_data[1][3] - rhs.m_data[1][3];
+
+        ret.m_data[2][0] = m_data[2][0] - rhs.m_data[2][0];
+        ret.m_data[2][1] = m_data[2][1] - rhs.m_data[2][1];
+        ret.m_data[2][2] = m_data[2][2] - rhs.m_data[2][2];
+        ret.m_data[2][3] = m_data[2][3] - rhs.m_data[2][3];
+
+        ret.m_data[3][0] = m_data[3][0] - rhs.m_data[3][0];
+        ret.m_data[3][1] = m_data[3][1] - rhs.m_data[3][1];
+        ret.m_data[3][2] = m_data[3][2] - rhs.m_data[3][2];
+        ret.m_data[3][3] = m_data[3][3] - rhs.m_data[3][3];
+
+        return ret;
+    }
+
+    Mat4& operator-=(const Mat4& rhs)
+    {
+        m_data[0][0] -= rhs.m_data[0][0];
+        m_data[0][1] -= rhs.m_data[0][1];
+        m_data[0][2] -= rhs.m_data[0][2];
+        m_data[0][3] -= rhs.m_data[0][3];
+
+        m_data[1][0] -= rhs.m_data[1][0];
+        m_data[1][1] -= rhs.m_data[1][1];
+        m_data[1][2] -= rhs.m_data[1][2];
+        m_data[1][3] -= rhs.m_data[1][3];
+
+        m_data[2][0] -= rhs.m_data[2][0];
+        m_data[2][1] -= rhs.m_data[2][1];
+        m_data[2][2] -= rhs.m_data[2][2];
+        m_data[2][2] -= rhs.m_data[2][2];
+
+        m_data[3][0] -= rhs.m_data[3][0];
+        m_data[3][1] -= rhs.m_data[3][1];
+        m_data[3][2] -= rhs.m_data[3][2];
+        m_data[3][2] -= rhs.m_data[3][2];
+
+        return *this;
+    }
+
+    Mat4 operator*(const Mat4& rhs)
+    {
+        Mat4 ret;
+
+        ret.m_data[0][0] = (m_data[0][0] * rhs.m_data[0][0]) + (m_data[0][1] * rhs.m_data[1][0]) + (m_data[0][2] * rhs.m_data[2][0]) + (m_data[0][3] * rhs.m_data[3][0]);
+        ret.m_data[0][1] = (m_data[0][0] * rhs.m_data[0][1]) + (m_data[0][1] * rhs.m_data[1][1]) + (m_data[0][2] * rhs.m_data[2][1]) + (m_data[0][3] * rhs.m_data[3][1]);
+        ret.m_data[0][2] = (m_data[0][0] * rhs.m_data[0][2]) + (m_data[0][1] * rhs.m_data[1][2]) + (m_data[0][2] * rhs.m_data[2][2]) + (m_data[0][3] * rhs.m_data[3][2]);
+        ret.m_data[0][3] = (m_data[0][0] * rhs.m_data[0][3]) + (m_data[0][1] * rhs.m_data[1][3]) + (m_data[0][2] * rhs.m_data[2][3]) + (m_data[0][3] * rhs.m_data[3][3]);
+
+        ret.m_data[1][0] = (m_data[1][0] * rhs.m_data[0][0]) + (m_data[1][1] * rhs.m_data[1][0]) + (m_data[1][2] * rhs.m_data[2][0]) + (m_data[1][3] * rhs.m_data[3][0]);
+        ret.m_data[1][1] = (m_data[1][0] * rhs.m_data[0][1]) + (m_data[1][1] * rhs.m_data[1][1]) + (m_data[1][2] * rhs.m_data[2][1]) + (m_data[1][3] * rhs.m_data[3][1]);
+        ret.m_data[1][2] = (m_data[1][0] * rhs.m_data[0][2]) + (m_data[1][1] * rhs.m_data[1][2]) + (m_data[1][2] * rhs.m_data[2][2]) + (m_data[1][3] * rhs.m_data[3][2]);
+        ret.m_data[1][3] = (m_data[1][0] * rhs.m_data[0][3]) + (m_data[1][1] * rhs.m_data[1][3]) + (m_data[1][2] * rhs.m_data[2][3]) + (m_data[1][3] * rhs.m_data[3][3]);
+
+        ret.m_data[2][0] = (m_data[2][0] * rhs.m_data[0][0]) + (m_data[2][1] * rhs.m_data[1][0]) + (m_data[2][2] * rhs.m_data[2][0]) + (m_data[2][3] * rhs.m_data[3][0]);
+        ret.m_data[2][1] = (m_data[2][0] * rhs.m_data[0][1]) + (m_data[2][1] * rhs.m_data[1][1]) + (m_data[2][2] * rhs.m_data[2][1]) + (m_data[2][3] * rhs.m_data[3][1]);
+        ret.m_data[2][2] = (m_data[2][0] * rhs.m_data[0][2]) + (m_data[2][1] * rhs.m_data[1][2]) + (m_data[2][2] * rhs.m_data[2][2]) + (m_data[2][3] * rhs.m_data[3][2]);
+        ret.m_data[2][3] = (m_data[2][0] * rhs.m_data[0][3]) + (m_data[2][1] * rhs.m_data[1][3]) + (m_data[2][2] * rhs.m_data[2][3]) + (m_data[2][3] * rhs.m_data[3][3]);
+
+        ret.m_data[3][0] = (m_data[3][0] * rhs.m_data[0][0]) + (m_data[3][1] * rhs.m_data[1][0]) + (m_data[3][2] * rhs.m_data[2][0]) + (m_data[3][3] * rhs.m_data[3][0]);
+        ret.m_data[3][1] = (m_data[3][0] * rhs.m_data[0][1]) + (m_data[3][1] * rhs.m_data[1][1]) + (m_data[3][2] * rhs.m_data[2][1]) + (m_data[3][3] * rhs.m_data[3][1]);
+        ret.m_data[3][2] = (m_data[3][0] * rhs.m_data[0][2]) + (m_data[3][1] * rhs.m_data[1][2]) + (m_data[3][2] * rhs.m_data[2][2]) + (m_data[3][3] * rhs.m_data[3][2]);
+        ret.m_data[3][3] = (m_data[3][0] * rhs.m_data[0][3]) + (m_data[3][1] * rhs.m_data[1][3]) + (m_data[3][2] * rhs.m_data[2][3]) + (m_data[3][3] * rhs.m_data[3][3]);
+
+        return ret;
+    }
+
+    Mat4& operator*=(GLfloat val)
+    {
+        m_data[0][0] *= val;
+        m_data[0][1] *= val;
+        m_data[0][2] *= val;
+        m_data[0][3] *= val;
+
+        m_data[1][0] *= val;
+        m_data[1][1] *= val;
+        m_data[1][2] *= val;
+        m_data[1][3] *= val;
+
+        m_data[2][0] *= val;
+        m_data[2][1] *= val;
+        m_data[2][2] *= val;
+        m_data[2][3] *= val;
+
+        m_data[3][0] *= val;
+        m_data[3][1] *= val;
+        m_data[3][2] *= val;
+        m_data[3][3] *= val;
+
+        return *this;
+    }
+
+    GLfloat operator()(int row, int col) const 
+    { 
+        ASSERT(row >= 0 && col >= 0);
+        ASSERT(row < 4 && col < 4);
+        return m_data[row][col]; 
+    }
+
+    void operator()(int row, int col, GLfloat val) 
+    { 
+        ASSERT(row >= 0 && col >= 0);
+        ASSERT(row < 4 && col < 4);
+        m_data[row][col] = val; 
+    }
+    
+    void print() const
+    {
+        for(int row = 0; row < 4; row++)
+        {
+            std::printf("[ ");
+            for(int col = 0; col < 4; col++)
+            {
+                std::printf("%.4f ", m_data[row][col]);
+            }
+
+            std::printf("]\n");
+        }
+    }
+private:
+    GLfloat m_data[4][4]; // row x column
+};
