@@ -1,7 +1,7 @@
 /**
  * 
  */
-#include "graphics/bitmap.h"
+#include "loader/bitmap.h"
 #include "common/log.hpp"
 
 #include <cstdio>
