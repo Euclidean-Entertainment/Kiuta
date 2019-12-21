@@ -5,7 +5,6 @@
 
 #include "system/window.h"
 
-
 class CEngine final
 {
 public:
@@ -23,5 +22,4 @@ private:
 private:
     CWindow m_hwnd;
     bool m_running { false };
-
 };

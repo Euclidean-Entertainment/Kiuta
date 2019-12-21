@@ -3,9 +3,9 @@
  */
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "system/window.h"
+
+#include <glm/glm.hpp>
 
 class CRenderer final
 {
@@ -15,7 +15,7 @@ public:
     CRenderer(const CWindow&);
 
     const glm::mat4& projection_matrix() const { return m_projection; }
-    
+
 private:
     int m_width;
     int m_height;

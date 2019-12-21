@@ -9,22 +9,22 @@
  *  @author Jesse Buhagiar
  */
 #include "gl/shader.h"
+
 #include "common/log.hpp"
 
+#include <fstream>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-#include <fstream>
 #include <iostream>
 
 CShader::CShader(const std::string& _name)
-    :   programID(SHADER_RESET), locked(false), name(_name), attribs()
+: programID(SHADER_RESET), locked(false), name(_name), attribs()
 {
     load();
 }
 
 CShader::CShader(const std::string& _name, const std::vector<ShaderAttribute>& _attribs)
-    :   programID(SHADER_RESET), locked(false), name(_name), attribs(_attribs)
+: programID(SHADER_RESET), locked(false), name(_name), attribs(_attribs)
 {
     load();
 }
@@ -42,15 +42,15 @@ void CShader::load(const std::string& _name)
 
 void CShader::load()
 {
-    std::ifstream   sourceStream;           // Source file stream
-    std::string     fragPath;               // Asset path to fragment shader
-    std::string     vertPath;               // Asset path to vertex shader
-    std::string     fragSource = "";        // Fragment shader source code
-    std::string     vertSource = "";        // Vertex Shader source code
-    std::string     line;                   // Temporary line variable
-    GLuint          fragShader;             // Fragment shader object
-    GLuint          vertShader;             // Vertex shader object
-    GLint           compStatus;             // Shader compilation status
+    std::ifstream sourceStream;  // Source file stream
+    std::string fragPath;        // Asset path to fragment shader
+    std::string vertPath;        // Asset path to vertex shader
+    std::string fragSource = ""; // Fragment shader source code
+    std::string vertSource = ""; // Vertex Shader source code
+    std::string line;            // Temporary line variable
+    GLuint fragShader;           // Fragment shader object
+    GLuint vertShader;           // Vertex shader object
+    GLint compStatus;            // Shader compilation status
 
     // Firstly, we need to read the source from the disk (as well as verify
     // that the files _actually_ exist on disk)
@@ -86,7 +86,7 @@ void CShader::load()
     if(!compStatus)
     {
         std::string compile_log;
-        GLint       logSize;
+        GLint logSize;
 
         glGetShaderiv(vertShader, GL_INFO_LOG_LENGTH, &logSize);
         compile_log.resize(logSize);
@@ -99,7 +99,6 @@ void CShader::load()
         status = CShader::LoadStatus::OPENGL_ERROR;
         return;
     }
-
 
     // Now, do the same for the fragment shader!
     fragShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -128,7 +127,7 @@ void CShader::load()
     if(!compStatus)
     {
         std::string compile_log;
-        GLint       logSize;
+        GLint logSize;
 
         glGetShaderiv(fragShader, GL_INFO_LOG_LENGTH, &logSize);
         compile_log.resize(logSize);
@@ -171,7 +170,7 @@ void CShader::load()
     if(linkStatus == GL_FALSE)
     {
         std::string compile_log;
-        GLint       logSize;
+        GLint logSize;
 
         glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &logSize);
         compile_log.resize(logSize);
@@ -209,8 +208,8 @@ void CShader::unbind() noexcept
 
 GLint CShader::get_uniform_loc(const std::string& name) const
 {
-    GLint           ret;
-    const GLchar*   str = name.c_str();
+    GLint ret;
+    const GLchar* str = name.c_str();
 
     if(!locked)
         log(LogLevel::WARN, "Shader %s not locked! It is impossible to set a uniform!\n", this->name.c_str());
@@ -224,7 +223,6 @@ GLint CShader::get_uniform_loc(const std::string& name) const
     return ret;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 template<>
 GLint CShader::set_uniform(const std::string& name, GLfloat f) const
@@ -361,12 +359,11 @@ GLint CShader::set_uniform(const std::string& name, const glm::mat4& mat) const
     return loc;
 }
 
-
 ///////////////////////////////////////////////////////////////
 template<>
 GLfloat CShader::get_uniform_value(const std::string& name) const
 {
-    GLint   loc = get_uniform_loc(name);
+    GLint loc = get_uniform_loc(name);
     GLfloat ret;
 
     glGetUniformfv(programID, loc, &ret);
@@ -376,8 +373,8 @@ GLfloat CShader::get_uniform_value(const std::string& name) const
 template<>
 GLint CShader::get_uniform_value(const std::string& name) const
 {
-    GLint   loc = get_uniform_loc(name);
-    GLint   ret;
+    GLint loc = get_uniform_loc(name);
+    GLint ret;
 
     glGetUniformiv(programID, loc, &ret);
     return ret;
@@ -386,8 +383,8 @@ GLint CShader::get_uniform_value(const std::string& name) const
 template<>
 GLuint CShader::get_uniform_value(const std::string& name) const
 {
-    GLint   loc = get_uniform_loc(name);
-    GLuint  ret;
+    GLint loc = get_uniform_loc(name);
+    GLuint ret;
 
     glGetUniformuiv(programID, loc, &ret);
     return ret;
@@ -396,8 +393,8 @@ GLuint CShader::get_uniform_value(const std::string& name) const
 template<>
 GLdouble CShader::get_uniform_value(const std::string& name) const
 {
-    GLint       loc = get_uniform_loc(name);
-    GLdouble    ret;
+    GLint loc = get_uniform_loc(name);
+    GLdouble ret;
 
     glGetUniformdv(programID, loc, &ret);
     return ret;

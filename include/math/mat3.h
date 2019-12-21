@@ -3,11 +3,11 @@
  */
 #pragma once
 
+#include "common/assert.h"
+
+#include <GL/glew.h>
 #include <cstdio>
 #include <cstring>
-#include <GL/glew.h>
-
-#include "common/assert.h"
 
 class Mat3 final
 {
@@ -135,18 +135,18 @@ public:
         return *this;
     }
 
-    GLfloat operator()(int row, int col) const 
-    { 
+    GLfloat operator()(int row, int col) const
+    {
         ASSERT(row >= 0 && col >= 0);
         ASSERT(row < 3 && col < 3);
-        return m_data[row][col]; 
+        return m_data[row][col];
     }
 
-    void operator()(int row, int col, GLfloat val) 
-    { 
+    void operator()(int row, int col, GLfloat val)
+    {
         ASSERT(row >= 0 && col >= 0);
         ASSERT(row < 3 && col < 3);
-        m_data[row][col] = val; 
+        m_data[row][col] = val;
     }
 
     void print() const
@@ -162,6 +162,7 @@ public:
             std::printf("]\n");
         }
     }
+
 private:
     GLfloat m_data[3][3]; // row x column
 };

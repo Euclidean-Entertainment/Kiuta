@@ -6,8 +6,8 @@
 #include "common/log.hpp"
 
 #include <SDL2/SDL_messagebox.h>
-#include <cstdlib>
 #include <cstdarg>
+#include <cstdlib>
 
 #define SH2_DIE -1
 #define BUFF_SIZE 4096

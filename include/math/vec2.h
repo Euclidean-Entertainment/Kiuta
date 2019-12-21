@@ -3,21 +3,23 @@
  */
 #pragma once
 
-#include <cstdio>
-#include <cmath>
-#include <GL/gl.h>
 #include "common/assert.h"
+
+#include <GL/gl.h>
+#include <cmath>
+#include <cstdio>
 
 class Vec2
 {
 public:
     Vec2() {}
-    Vec2(GLfloat x, GLfloat y) : m_x(x), m_y(y) {}
+    Vec2(GLfloat x, GLfloat y)
+    : m_x(x), m_y(y) {}
 
     const GLfloat magnitude() const { return sqrt((m_x * m_x) + (m_y * m_y)); }
 
-    const GLfloat angle() 
-    { 
+    const GLfloat angle()
+    {
         ASSERT(m_x != 0);
         return atan(m_y / m_x);
     }
@@ -46,7 +48,6 @@ public:
         return Vec2(m_x / scalar, m_y / scalar);
     }
 
-
     Vec2& operator+=(const Vec2& rhs)
     {
         m_x += rhs.m_x;
@@ -65,7 +66,7 @@ public:
     {
         m_x *= scalar;
         m_y *= scalar;
-        return *this;    
+        return *this;
     }
 
     Vec2& operator/=(const GLfloat scalar)
@@ -82,7 +83,7 @@ public:
         return m_x * b.m_x + m_y * b.m_y;
     }
 
-    void print() const 
+    void print() const
     {
         std::printf("[%.4f %.4f]\n", m_x, m_y);
     }

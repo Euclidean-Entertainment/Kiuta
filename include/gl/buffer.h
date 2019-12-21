@@ -10,11 +10,11 @@
 /**
  * Backend buffer to store data
  */
-template <typename T, GLenum gl_type>
+template<typename T, GLenum gl_type>
 class GLDataBuffer final
 {
 public:
-    void fill(const T* data) 
+    void fill(const T* data)
     {
         for(size_t i = 0; i < sizeof(data); i++)
             m_data.push_back(data[i]);
@@ -38,18 +38,18 @@ private:
  */
 enum BufferTarget : GLenum
 {
-    ARRAY_BUFFER        = GL_ARRAY_BUFFER,                  /**< For Vertex Attributes */
-    ATOMIC_COUNTER      = GL_ATOMIC_COUNTER_BUFFER,         /**< Atomic counter Storage */
-    COPY_READ           = GL_COPY_READ_BUFFER,              /**< Buffer copy source */
-    COPY_WRITE          = GL_COPY_WRITE_BUFFER,             /**< Buffer copy destination */
-    ELEMENT_ARRAY       = GL_ELEMENT_ARRAY_BUFFER,          /**< Vertex array indices */
-    PIXEL_PACK          = GL_PIXEL_PACK_BUFFER,             /**< Pixel Read target */
-    PIXEL_UNPACK        = GL_PIXEL_UNPACK_BUFFER,           /**< Texture data source */
-    QUERY               = GL_QUERY_BUFFER,                  /**< Query Result Buffer */
-    SHADER_STORAGE      = GL_SHADER_STORAGE_BUFFER,         /**< Read-write storage for shaders */
-    TEXTURE             = GL_TEXTURE_BUFFER,                /**< Texture data buffer */
-    TRANSFORM_FEEDBACK  = GL_TRANSFORM_FEEDBACK_BUFFER,     /**< Transform feedback buffer */
-    UNIFORM_BUFFER      = GL_UNIFORM_BUFFER                 /**< Uniform block storage */
+    ARRAY_BUFFER = GL_ARRAY_BUFFER,                    /**< For Vertex Attributes */
+    ATOMIC_COUNTER = GL_ATOMIC_COUNTER_BUFFER,         /**< Atomic counter Storage */
+    COPY_READ = GL_COPY_READ_BUFFER,                   /**< Buffer copy source */
+    COPY_WRITE = GL_COPY_WRITE_BUFFER,                 /**< Buffer copy destination */
+    ELEMENT_ARRAY = GL_ELEMENT_ARRAY_BUFFER,           /**< Vertex array indices */
+    PIXEL_PACK = GL_PIXEL_PACK_BUFFER,                 /**< Pixel Read target */
+    PIXEL_UNPACK = GL_PIXEL_UNPACK_BUFFER,             /**< Texture data source */
+    QUERY = GL_QUERY_BUFFER,                           /**< Query Result Buffer */
+    SHADER_STORAGE = GL_SHADER_STORAGE_BUFFER,         /**< Read-write storage for shaders */
+    TEXTURE = GL_TEXTURE_BUFFER,                       /**< Texture data buffer */
+    TRANSFORM_FEEDBACK = GL_TRANSFORM_FEEDBACK_BUFFER, /**< Transform feedback buffer */
+    UNIFORM_BUFFER = GL_UNIFORM_BUFFER                 /**< Uniform block storage */
 };
 
 /**
@@ -68,9 +68,9 @@ enum BufferUsage : GLenum
      *
      *  The data store contents are modified by reading data from the GL, and used to return that data when queried by the application.
      */
-    STREAM_DRAW              = GL_STREAM_DRAW,       /**< The data store contents will be modified once and used at most a few times */
-    STATIC_DRAW              = GL_STATIC_DRAW,       /**< The data store contents wil be modified once and used many times */
-    DYNAMIC_DRAW             = GL_DYNAMIC_DRAW,      /**< The data store contents will be modified repeatedly and used many times */
+    STREAM_DRAW = GL_STREAM_DRAW,   /**< The data store contents will be modified once and used at most a few times */
+    STATIC_DRAW = GL_STATIC_DRAW,   /**< The data store contents wil be modified once and used many times */
+    DYNAMIC_DRAW = GL_DYNAMIC_DRAW, /**< The data store contents will be modified repeatedly and used many times */
 
     /**
      * Read usage
@@ -78,21 +78,21 @@ enum BufferUsage : GLenum
      * The data store contents are modified by reading data from the GL, and used as the source for
      * GL drawing and image specification commands.
      */
-    STREAM_READ             = GL_STREAM_READ,       /**< The data store contents will be modified once and used at most a few times */
-    STATIC_READ             = GL_STATIC_READ,       /**< The data store contents wil be modified once and used many times */
-    DYNAMIC_READ            = GL_DYNAMIC_READ,      /**< The data store contents will be modified repeatedly and used many times */
+    STREAM_READ = GL_STREAM_READ,   /**< The data store contents will be modified once and used at most a few times */
+    STATIC_READ = GL_STATIC_READ,   /**< The data store contents wil be modified once and used many times */
+    DYNAMIC_READ = GL_DYNAMIC_READ, /**< The data store contents will be modified repeatedly and used many times */
 
     /**
      * Copy usage
      *
      * The data store contents are modified by reading data from the GL, and used to return that data when queried by the application
      */
-    STREAM_COPY             = GL_STREAM_COPY,       /**< The data store contents will be modified once and used at most a few times */
-    STATIC_COPY             = GL_STATIC_COPY,       /**< The data store contents wil be modified once and used many times */
-    DYNAMIC_COPY            = GL_DYNAMIC_COPY,      /**< The data store contents will be modified repeatedly and used many times */
+    STREAM_COPY = GL_STREAM_COPY,   /**< The data store contents will be modified once and used at most a few times */
+    STATIC_COPY = GL_STATIC_COPY,   /**< The data store contents wil be modified once and used many times */
+    DYNAMIC_COPY = GL_DYNAMIC_COPY, /**< The data store contents will be modified repeatedly and used many times */
 };
 
-template <typename T, GLenum gl_type>
+template<typename T, GLenum gl_type>
 class CGLBuffer final
 {
 public:
@@ -104,9 +104,9 @@ public:
     CGLBuffer(const CGLBuffer&);
     ~CGLBuffer();
 
-    void set_name(const std::string& name){ m_name = name;}
+    void set_name(const std::string& name) { m_name = name; }
 
-    GLuint buffer_object() const {return m_buffer_object;}
+    GLuint buffer_object() const { return m_buffer_object; }
     BufferTarget target() const { return m_target; }
 
     void buffer_data(BufferTarget, GLsizeiptr, const void*, BufferUsage, int);
@@ -122,21 +122,21 @@ public:
 
     void bind() const { glBindBuffer(m_target, m_buffer_object); }
     void unbind() const { glBindBuffer(m_target, 0); }
-    
+
 private:
     // Fill this buffer with data (on the CPU side)
     // FIXME: This could probably be turned when we don't need to debug!?!?
-    void fill(const T* data) 
+    void fill(const T* data)
     {
         for(size_t i = 0; i < sizeof(data); i++)
             m_data.push_back(data[i]);
     }
 
 private:
-    GLuint          m_buffer_object { 0 };
-    std::string     m_name { " " };
-    BufferTarget    m_target { BufferTarget::ARRAY_BUFFER };
-    int             m_num_components { 0 };
+    GLuint m_buffer_object { 0 };
+    std::string m_name { " " };
+    BufferTarget m_target { BufferTarget::ARRAY_BUFFER };
+    int m_num_components { 0 };
 
     std::vector<T> m_data;
     size_t m_data_size { sizeof(T) };

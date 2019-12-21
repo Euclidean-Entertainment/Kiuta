@@ -3,26 +3,24 @@
  */
 #pragma once
 
+#include <GL/glew.h>
+#include <SDL2/SDL.h>
 #include <string>
 #include <vector>
 
-
-#include <SDL2/SDL.h>
-#include <GL/glew.h>
-
-class CWindow; 
+class CWindow;
 
 class CGLContext final
 {
 public:
-    explicit CGLContext(){}
+    explicit CGLContext() {}
 
     void create(const CWindow& hwnd);
     void get_extensions();
 
     const std::string& vendor() const { return m_vendor; }
     const std::string& version() const { return m_version; }
-    const std::string& driver() const {return m_driver; }
+    const std::string& driver() const { return m_driver; }
 
 private:
     static const char* GLGetString(GLenum name);

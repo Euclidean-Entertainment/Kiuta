@@ -1,8 +1,9 @@
 /**
  * 
  */
-#include "common/log.hpp"
 #include "render/glcontext.h"
+
+#include "common/log.hpp"
 #include "system/window.h"
 
 #include <cstdio>
@@ -10,67 +11,67 @@
 #include <limits>
 
 static void GLAPIENTRY debugCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const GLvoid* data)
-{   
+{
     std::string errMsg;
     std::string level;
-    
+
     static_cast<void>(id);
     static_cast<void>(length);
     static_cast<void>(data);
-    
+
     //ASSERT(!data);
     errMsg = "";
 
     // Get the source of the error message
     switch(source)
     {
-    case GL_DEBUG_SOURCE_API: // Error caused by the OpenGL API
-        errMsg += "API ";
-        break;
-    case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
-        errMsg += "WINDOW SYSTEM ";
-        break;
-    case GL_DEBUG_SOURCE_SHADER_COMPILER:
-        errMsg += "SHADER COMPILER ";
-        break;
-    case GL_DEBUG_SOURCE_APPLICATION:
-        errMsg += "APPLICATION ";
-        break;
-    case GL_DEBUG_SOURCE_OTHER:
-        errMsg += "OTHER ";
-        break;
-    default:
-        errMsg += "UNKNOWN ";
-        break;
+        case GL_DEBUG_SOURCE_API: // Error caused by the OpenGL API
+            errMsg += "API ";
+            break;
+        case GL_DEBUG_SOURCE_WINDOW_SYSTEM:
+            errMsg += "WINDOW SYSTEM ";
+            break;
+        case GL_DEBUG_SOURCE_SHADER_COMPILER:
+            errMsg += "SHADER COMPILER ";
+            break;
+        case GL_DEBUG_SOURCE_APPLICATION:
+            errMsg += "APPLICATION ";
+            break;
+        case GL_DEBUG_SOURCE_OTHER:
+            errMsg += "OTHER ";
+            break;
+        default:
+            errMsg += "UNKNOWN ";
+            break;
     }
 
     // Get the type of error this is
     switch(type)
     {
-    case GL_DEBUG_TYPE_ERROR:
-        errMsg += "(ERROR): ";
-        break;
-    case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
-        errMsg += "(DEPRECATED): ";
-        break;
-    case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
-        errMsg += "(UNDEFINED BEHAVIOR): ";
-        break;
-    case GL_DEBUG_TYPE_PORTABILITY:
-        errMsg += "PORTABILITY! ";
-        break;
-    case GL_DEBUG_TYPE_PERFORMANCE:
-        errMsg += "(PERFORMANCE): ";
-        break;
-    case GL_DEBUG_TYPE_OTHER:
-        errMsg += "(OTHER): ";
-        break;
-    case GL_DEBUG_TYPE_MARKER:
-        errMsg += "(MARKER): ";
-        break;
-    default:
-        errMsg += "(UNKNOWN): ";
-        break;
+        case GL_DEBUG_TYPE_ERROR:
+            errMsg += "(ERROR): ";
+            break;
+        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR:
+            errMsg += "(DEPRECATED): ";
+            break;
+        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:
+            errMsg += "(UNDEFINED BEHAVIOR): ";
+            break;
+        case GL_DEBUG_TYPE_PORTABILITY:
+            errMsg += "PORTABILITY! ";
+            break;
+        case GL_DEBUG_TYPE_PERFORMANCE:
+            errMsg += "(PERFORMANCE): ";
+            break;
+        case GL_DEBUG_TYPE_OTHER:
+            errMsg += "(OTHER): ";
+            break;
+        case GL_DEBUG_TYPE_MARKER:
+            errMsg += "(MARKER): ";
+            break;
+        default:
+            errMsg += "(UNKNOWN): ";
+            break;
     }
 
     switch(severity)
@@ -117,7 +118,7 @@ void CGLContext::create(const CWindow& hwnd)
         err += std::string(reinterpret_cast<const char*>(glewGetErrorString(ret)));
 
         std::printf("%s\n", err.c_str());
-        abort();  
+        abort();
     }
 
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
@@ -155,7 +156,7 @@ void CGLContext::get_extensions()
     GLint numExts;
 
     glGetIntegerv(GL_NUM_EXTENSIONS, &numExts); // Get the number of extensions the system supports
-    
+
     // This generates a "-Wsign-compare" but we can ignore it
     static_assert(std::numeric_limits<GLuint>::max() >= std::numeric_limits<decltype(numExts)>::max(), "GLuint must be able to represent all positive values of numExts");
     GLuint uNumExts = static_cast<GLuint>(numExts);

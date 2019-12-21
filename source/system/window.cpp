@@ -1,9 +1,10 @@
 /**
  * 
  */
+#include "system/window.h"
+
 #include "common/assert.h"
 #include "common/log.hpp"
-#include "system/window.h"
 
 void CWindow::init()
 {

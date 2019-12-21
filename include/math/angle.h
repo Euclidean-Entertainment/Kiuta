@@ -8,9 +8,11 @@
 class Angle final
 {
 public:
-    Angle(){}
-    Angle(float angle) : m_angle(angle){}
-    Angle(const Angle& angle) : m_angle(angle.m_angle){}
+    Angle() {}
+    Angle(float angle)
+    : m_angle(angle) {}
+    Angle(const Angle& angle)
+    : m_angle(angle.m_angle) {}
 
     inline float radians() const
     {

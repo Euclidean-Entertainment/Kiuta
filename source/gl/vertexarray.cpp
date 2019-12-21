@@ -1,10 +1,10 @@
 /**
  * 
  */
-#include "common/assert.h"
-#include "common/log.hpp"
 #include "gl/vertexarray.h"
 
+#include "common/assert.h"
+#include "common/log.hpp"
 
 #include <utility>
 

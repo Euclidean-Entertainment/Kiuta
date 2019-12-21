@@ -6,9 +6,9 @@
 #include "common/rect.hpp"
 #include "render/glcontext.h"
 
-#include <string>
-#include <memory>
 #include <SDL2/SDL.h>
+#include <memory>
+#include <string>
 
 /**
  * OpenGL Window
@@ -24,14 +24,16 @@ class CWindow final
     };
 
 public:
-    CWindow(){}
-    CWindow(const CRect& rect) : m_dimensions(rect){}
-    CWindow(int width, int height) : m_dimensions(CRect(width, height)){}
+    CWindow() {}
+    CWindow(const CRect& rect)
+    : m_dimensions(rect) {}
+    CWindow(int width, int height)
+    : m_dimensions(CRect(width, height)) {}
 
     void init();
     void resize(int width, int height);
     void resize(const CRect& rect);
-    
+
     void set_fullscreen();
     void set_windowed();
 

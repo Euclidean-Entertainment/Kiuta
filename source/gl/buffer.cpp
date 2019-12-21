@@ -1,9 +1,10 @@
 /**
  * 
  */
-#include "common/log.hpp"
 #include "gl/buffer.h"
+
 #include "common/assert.h"
+#include "common/log.hpp"
 
 template<typename T, GLenum gl_type>
 CGLBuffer<T, gl_type>::CGLBuffer()

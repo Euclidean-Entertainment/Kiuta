@@ -2,6 +2,7 @@
  * 
  */
 #include "loader/bitmap.h"
+
 #include "common/log.hpp"
 
 #include <cstdio>

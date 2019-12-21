@@ -14,7 +14,6 @@
 #pragma once
 
 #include <GL/glew.h>
-
 #include <string>
 #include <vector>
 
@@ -29,8 +28,8 @@
  */
 struct ShaderAttribute final
 {
-    std::string name;   /**< Name of this attribute */
-    GLuint      loc;    /**< Location we want to bind this attribute to */
+    std::string name; /**< Name of this attribute */
+    GLuint loc;       /**< Location we want to bind this attribute to */
 };
 
 /**
@@ -51,14 +50,14 @@ public:
         LINK_ERROR
     };
 
-    static constexpr GLuint SHADER_RESET = 0;   /**< Reset Shader */
+    static constexpr GLuint SHADER_RESET = 0; /**< Reset Shader */
 
 public:
     /**
      * Default constructor.
      */
     CShader()
-        : programID(0x00), locked(false), name("UNDEFINED"), status(LoadStatus::COMPILE_ERROR), attribs(){}
+    : programID(0x00), locked(false), name("UNDEFINED"), status(LoadStatus::COMPILE_ERROR), attribs() {}
 
     /**
      * Constructor
@@ -122,8 +121,8 @@ public:
      *
      * @return On success, will return the location of the given uniform.
      */
-    template<typename ... T>
-    GLint set_uniform(const std::string& name, T ... args) const;
+    template<typename... T>
+    GLint set_uniform(const std::string& name, T... args) const;
 
     /**
      * Get a uniform value from the shader of typename T.
@@ -154,14 +153,14 @@ public:
      *
      * @return Attribute location of the attribute specified in @ref name
      */
-    GLint get_attrib_location(const std::string& name) const{return glGetAttribLocation(programID, name.c_str());};
+    GLint get_attrib_location(const std::string& name) const { return glGetAttribLocation(programID, name.c_str()); };
 
     /**
      * Return whether or not this program is currently bound and in use.
      *
      * @return @ref locked
      */
-    bool is_locked() const{ return locked; }
+    bool is_locked() const { return locked; }
 
     /**
      * Load the shader source from disk and compile it.
@@ -175,10 +174,9 @@ public:
     /**
      * Get the load status of this shader.
      */
-    LoadStatus load_status()const {return status;}
+    LoadStatus load_status() const { return status; }
 
 private:
-
     /**
      * Load the shader source from disk and compile it.
      *
@@ -187,9 +185,9 @@ private:
     void load(void);
 
 private:
-    GLuint                          programID;  /**< Program ID Generated for us by OpenGL */
-    bool                            locked;     /**< Specifies whether or not this shader is 'locked' and currently in use */
-    std::string                     name;       /**< Name of this shader */
-    LoadStatus                      status;
-    std::vector<ShaderAttribute>    attribs;    /**< Local attributes list (probably not necessary)*/
+    GLuint programID; /**< Program ID Generated for us by OpenGL */
+    bool locked;      /**< Specifies whether or not this shader is 'locked' and currently in use */
+    std::string name; /**< Name of this shader */
+    LoadStatus status;
+    std::vector<ShaderAttribute> attribs; /**< Local attributes list (probably not necessary)*/
 };

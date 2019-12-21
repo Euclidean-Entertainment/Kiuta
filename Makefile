@@ -5,6 +5,7 @@ CXX_OBJS = \
 	source/gl/shader.o \
 	source/gl/vertexarray.o \
 	source/loader/bitmap.o \
+    source/render/renderer.o \
     source/render/glcontext.o \
 	source/system/window.o \
 

@@ -3,31 +3,32 @@
  */
 #pragma once
 
+#include "common/assert.h"
+
 #include <cstdint>
 #include <string>
 #include <vector>
-#include "common/assert.h"
 
 struct bmp_file_header
 {
-    char        signature[2];
-    uint32_t    filesize;
-    uint16_t    reserved[2];
-    uint32_t    pixdat_offset;
+    char signature[2];
+    uint32_t filesize;
+    uint16_t reserved[2];
+    uint32_t pixdat_offset;
 } __attribute__((packed));
 
 struct bmp_info_header
 {
-    uint32_t    header_size;
-    int32_t     bmp_width;
-    int32_t     bmp_height;
-    uint16_t    color_planes;
-    uint16_t    bpp;
-    uint32_t    compression_method;
-    int32_t     h_res;
-    int32_t     v_res;
-    uint32_t    num_colors_in_palette;
-    uint32_t    num_important_colors_used;
+    uint32_t header_size;
+    int32_t bmp_width;
+    int32_t bmp_height;
+    uint16_t color_planes;
+    uint16_t bpp;
+    uint32_t compression_method;
+    int32_t h_res;
+    int32_t v_res;
+    uint32_t num_colors_in_palette;
+    uint32_t num_important_colors_used;
 } __attribute__((packed));
 
 // This probably won't be needed because we're using uncompressed
@@ -49,15 +50,31 @@ enum class CompressionMethod : uint8_t
 class CMSBitmap
 {
 public:
-    CMSBitmap(){}
+    CMSBitmap() {}
     CMSBitmap(const std::string&);
 
     void load(const std::string&);
 
-    int32_t width() const { ASSERT(m_fheader.signature[0] == 'B'); return m_iheader.bmp_width; };
-    int32_t height() const { ASSERT(m_fheader.signature[0] == 'B'); return m_iheader.bmp_height; }
-    uint16_t bpp() const { ASSERT(m_fheader.signature[0] == 'B'); return m_iheader.bpp; }
-    uint32_t filesize() const { ASSERT(m_fheader.signature[0] == 'B'); return m_fheader.filesize; }
+    int32_t width() const
+    {
+        ASSERT(m_fheader.signature[0] == 'B');
+        return m_iheader.bmp_width;
+    };
+    int32_t height() const
+    {
+        ASSERT(m_fheader.signature[0] == 'B');
+        return m_iheader.bmp_height;
+    }
+    uint16_t bpp() const
+    {
+        ASSERT(m_fheader.signature[0] == 'B');
+        return m_iheader.bpp;
+    }
+    uint32_t filesize() const
+    {
+        ASSERT(m_fheader.signature[0] == 'B');
+        return m_fheader.filesize;
+    }
 
     const uint8_t* pixel_data() const { return m_data.data(); }
 

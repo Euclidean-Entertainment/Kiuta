@@ -19,27 +19,27 @@ struct VertexAttribute
      */
     enum AttributeType : GLenum
     {
-        BYTE                        = GL_BYTE,
-        UNSIGNED_BYTE               = GL_UNSIGNED_BYTE,
-        SHORT                       = GL_SHORT,
-        UNSIGNED_SHORT              = GL_UNSIGNED_SHORT,
-        INT                         = GL_INT,
-        UNSIGNED_INT                = GL_UNSIGNED_INT,
+        BYTE = GL_BYTE,
+        UNSIGNED_BYTE = GL_UNSIGNED_BYTE,
+        SHORT = GL_SHORT,
+        UNSIGNED_SHORT = GL_UNSIGNED_SHORT,
+        INT = GL_INT,
+        UNSIGNED_INT = GL_UNSIGNED_INT,
 
-        HALF_FLOAT                  = GL_HALF_FLOAT,
-        FLOAT                       = GL_FLOAT,
-        DOUBLE                      = GL_DOUBLE,
-        FIXED_POINT                 = GL_FIXED,
-        INT_2_10_10_10              = GL_INT_2_10_10_10_REV,
-        UNSIGNED_INT_2_10_10_10     = GL_UNSIGNED_INT_2_10_10_10_REV,
-        UNSIGNED_INT_10F_11F_11F    = GL_UNSIGNED_INT_10F_11F_11F_REV
+        HALF_FLOAT = GL_HALF_FLOAT,
+        FLOAT = GL_FLOAT,
+        DOUBLE = GL_DOUBLE,
+        FIXED_POINT = GL_FIXED,
+        INT_2_10_10_10 = GL_INT_2_10_10_10_REV,
+        UNSIGNED_INT_2_10_10_10 = GL_UNSIGNED_INT_2_10_10_10_REV,
+        UNSIGNED_INT_10F_11F_11F = GL_UNSIGNED_INT_10F_11F_11F_REV
     };
 
-    GLuint      idx;        /**< Which index this attribute is mapped to via layout(location = ) in the vertex stage of the pipeline */
-    GLint       size;       /**< Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, 4 */
-    GLboolean   normalize;  /**< Should the data for this attribute be normalized by the GPU? */
-    GLsizei     stride;     /**< Byte offset between attributes. That is, is we have memory layout of {vertex, normal, colour}, each of 8-bits, the stride would be 2 [bytes] */
-    GLintptr    offset;     /**< Data offset for first element */
+    GLuint idx;          /**< Which index this attribute is mapped to via layout(location = ) in the vertex stage of the pipeline */
+    GLint size;          /**< Specifies the number of components per generic vertex attribute. Must be 1, 2, 3, 4 */
+    GLboolean normalize; /**< Should the data for this attribute be normalized by the GPU? */
+    GLsizei stride;      /**< Byte offset between attributes. That is, is we have memory layout of {vertex, normal, colour}, each of 8-bits, the stride would be 2 [bytes] */
+    GLintptr offset;     /**< Data offset for first element */
 };
 
 /**
@@ -61,15 +61,15 @@ public:
 public:
     CGLVertexArray();
     CGLVertexArray(const CGLVertexArray& rhs);
-    ~CGLVertexArray(){ glDeleteVertexArrays(1, &m_vao); }
+    ~CGLVertexArray() { glDeleteVertexArrays(1, &m_vao); }
 
     void set_name(const std::string& name) { m_name = name; }
 
     void bind() const;
     void unbind() const;
 
-    GLuint vao() const{ return m_vao; }
-    const std::string& name() const { return m_name;} 
+    GLuint vao() const { return m_vao; }
+    const std::string& name() const { return m_name; }
 
     template<typename T, GLenum gl_type>
     int attach_buffer(const CGLBuffer<T, gl_type>&);
@@ -78,7 +78,6 @@ public:
     int attach_buffer(int, CGLBuffer<T, gl_type>&);
 
 private:
-    GLuint      m_vao { 0 }; 
-    std::string m_name { };
+    GLuint m_vao { 0 };
+    std::string m_name {};
 };
-
