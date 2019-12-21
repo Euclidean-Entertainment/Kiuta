@@ -3,6 +3,7 @@ CXX_OBJS = \
     source/engine/engine.o \
 	source/gl/buffer.o \
 	source/gl/shader.o \
+	source/gl/spritetexture.o \
 	source/gl/vertexarray.o \
 	source/loader/bitmap.o \
     source/render/renderer.o \
@@ -29,7 +30,7 @@ all: $(BINARY)
 $(BINARY): $(CXX_OBJS)
 	@rm -rf $(BINDIR)
 	@mkdir $(BINDIR)
-	@echo "LINKING $@"; $(CXX) -o $(BINDIR)/$@ $(CXX_OBJS) -lGL -lSDL2 -lGLEW
+	@echo "LINKING $@"; $(CXX) -o $(BINDIR)/$@ $(CXX_OBJS) -rdynamic -lGL -lSDL2 -lGLEW
 
 .cpp.o:
 	@echo "CXX $@"; $(CXX) $(CXXFLAGS) -o $@ -c $<
