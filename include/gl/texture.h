@@ -83,8 +83,8 @@ protected:
 
     template<typename T>
     void set_parameter(GLenum pname, T param);
-
-    void upload(const CMSBitmap& bitmap) const;
+    
+    virtual void upload(__attribute__((unused)) const CMSBitmap& bitmap) const { die("Whoa! How did CTexture::upload() get called!?!?!\n"); };
 
     const ColorFormat& format() const { return m_format; }
     const DataType& internal_type() const { return m_type; }
