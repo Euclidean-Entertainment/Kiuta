@@ -3,9 +3,10 @@ CXX_OBJS = \
     source/engine/engine.o \
 	source/gl/buffer.o \
 	source/gl/shader.o \
-	source/gl/spritetexture.o \
 	source/gl/texture.o \
 	source/gl/vertexarray.o \
+	source/graphics/bgtexture.o \
+	source/graphics/spritetexture.o \
 	source/loader/bitmap.o \
     source/render/renderer.o \
     source/render/glcontext.o \
