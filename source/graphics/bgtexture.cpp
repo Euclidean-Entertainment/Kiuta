@@ -25,29 +25,34 @@
  * History:
  * 
  */
-#include "gl/bgtexture.h"
+#include "graphics/bgtexture.h"
 
 void CBackgroundTexture::bind() const
 {
-    log(LogLevel::INFO, "CBackgroundTexture: binding texture %s(%ld) to GL_TEXTURE_2D\n", name().c_str(), texture_id());
+    //log(LogLevel::INFO, "CBackgroundTexture: binding texture %s(%ld) to GL_TEXTURE_2D\n", name().c_str(), texture_id());
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_id());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 }
 
 void CBackgroundTexture::unbind() const
 {
-    log(LogLevel::INFO, "CBackgroundTexture: unbinding texture %s(%ld)\n", name().c_str(), texture_id());
+    //log(LogLevel::INFO, "CBackgroundTexture: unbinding texture %s(%ld)\n", name().c_str(), texture_id());
     glBindTexture(GL_TEXTURE_2D, CTexture::TEXTURE_RESET);
 }
 
 void CBackgroundTexture::upload(const CMSBitmap& bitmap) const
 {
     log(LogLevel::INFO, "CBackgroundtexture: uploading data from %s\n", "TODO INSERT NAME HERE!");
-    glTexImage2D(   GL_TEXTURE_2D, 0, 
-                    static_cast<GLenum>(format()), 
+    glBindTexture(GL_TEXTURE_2D, texture_id());
+    glTexImage2D(   GL_TEXTURE_2D, 
+                    0, 
+                    static_cast<GLenum>(internal_format()), 
                     static_cast<GLsizei>(bitmap.width()), 
                     static_cast<GLsizei>(bitmap.height()), 
                     0, 
-                    static_cast<GLenum>(format()), 
+                    static_cast<GLenum>(pixel_format()), 
                     static_cast<GLenum>(internal_type()), 
                     bitmap.pixel_data());
 }
