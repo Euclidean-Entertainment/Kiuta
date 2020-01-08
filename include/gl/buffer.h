@@ -109,7 +109,7 @@ public:
     GLuint buffer_object() const { return m_buffer_object; }
     BufferTarget target() const { return m_target; }
 
-    void buffer_data(BufferTarget, GLsizeiptr, const void*, BufferUsage, int);
+    void buffer_data(BufferTarget, GLsizeiptr size, const void* data, BufferUsage, int num_components);
 
     const CGLBuffer& operator=(const CGLBuffer& rhs);
     const char* name() const { return m_name.c_str(); }
