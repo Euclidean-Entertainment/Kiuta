@@ -51,7 +51,8 @@ public:
     enum class ColorFormat : GLenum
     {
         RGB = GL_RGB,
-        RGBA = GL_RGBA
+        RGBA = GL_RGBA,
+        BGRA = GL_BGRA
     };
 
     enum class DataType : GLenum
@@ -71,10 +72,10 @@ public:
 
 protected:
     CTexture()
-    : m_bound(false), m_texid(0), m_name("DEFAULT"), m_format(ColorFormat::RGB), m_type(DataType::UNSIGNED_BYTE) { glGenTextures(1, &m_texid); }
+    : m_bound(false), m_texid(0), m_name("DEFAULT"), m_internal_format(ColorFormat::RGBA), m_pixel_format(ColorFormat::BGRA), m_type(DataType::UNSIGNED_BYTE) { glGenTextures(1, &m_texid); }
 
     CTexture(const std::string& name)
-    : m_bound(false), m_texid(0), m_name(name), m_format(ColorFormat::RGB), m_type(DataType::UNSIGNED_BYTE) { glGenTextures(1, &m_texid); }
+    : m_bound(false), m_texid(0), m_name(name),m_internal_format(ColorFormat::RGBA), m_pixel_format(ColorFormat::BGRA), m_type(DataType::UNSIGNED_BYTE) { glGenTextures(1, &m_texid); }
 
     virtual ~CTexture() { glDeleteTextures(1, &m_texid); }
 
@@ -86,7 +87,8 @@ protected:
     
     virtual void upload(__attribute__((unused)) const CMSBitmap& bitmap) const { die("Whoa! How did CTexture::upload() get called!?!?!\n"); };
 
-    const ColorFormat& format() const { return m_format; }
+    const ColorFormat& pixel_format() const { return m_pixel_format; }
+    const ColorFormat& internal_format() const { return m_internal_format; }
     const DataType& internal_type() const { return m_type; }
     const std::string& name() const { return m_name; }
     GLuint texture_id() const { return m_texid; }
@@ -96,6 +98,7 @@ private:
     GLuint m_texid;
     std::string m_name;
 
-    ColorFormat m_format;
+    ColorFormat m_internal_format;
+    ColorFormat m_pixel_format;
     DataType m_type;
 };
