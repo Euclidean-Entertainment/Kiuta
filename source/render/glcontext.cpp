@@ -158,7 +158,7 @@ void CGLContext::get_extensions()
     glGetIntegerv(GL_NUM_EXTENSIONS, &numExts); // Get the number of extensions the system supports
 
     // This generates a "-Wsign-compare" but we can ignore it
-    static_assert(std::numeric_limits<GLuint>::max() >= std::numeric_limits<decltype(numExts)>::max(), "GLuint must be able to represent all positive values of numExts");
+    static_assert(std::numeric_limits<GLuint>::max() >= std::numeric_limits<decltype(static_cast<GLuint>(numExts))>::max(), "GLuint must be able to represent all positive values of numExts");
     GLuint uNumExts = static_cast<GLuint>(numExts);
     m_extensions.reserve(uNumExts);
 
