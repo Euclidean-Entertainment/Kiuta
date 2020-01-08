@@ -25,7 +25,7 @@
  * History:
  * 
  */
-#include "gl/spritetexture.h"
+#include "graphics/spritetexture.h"
 
 void CSpriteTexture::bind() const
 {
