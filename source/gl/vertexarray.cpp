@@ -30,18 +30,36 @@ void CGLVertexArray::unbind() const
     glBindVertexArray(0);
 }
 
+// TODO: This name might need to be changed!!!
 template<>
-int CGLVertexArray::attach_buffer(int index, CGLBuffer<float, GL_FLOAT>& buffer)
+int CGLVertexArray::attach_buffer(int attribute_index, CGLBuffer<float, GL_FLOAT>& buffer)
 {
     ASSERT(m_vao);
 
 #ifdef DEBUG
     log(LogLevel::INFO, "CGLVertexArray: attaching buffer %s to VAO!\n", buffer.name());
-    log(LogLevel::INFO, "CGLVertexArray: index = %d, buffer.type_size() = %ld buffer.size() == %ld\n", index, buffer.type_size(), buffer.size());
+    log(LogLevel::INFO, "CGLVertexArray: attribute_index = %d, buffer.type_size() = %ld buffer.size() == %ld\n", attribute_index, buffer.type_size(), buffer.size());
 #endif
     buffer.bind();
-    glEnableVertexAttribArray(index);
-    glVertexAttribPointer(index, buffer.num_components(), buffer.type(), GL_FALSE, 0, nullptr);
+    glEnableVertexAttribArray(attribute_index);
+    glVertexAttribPointer(attribute_index, buffer.num_components(), buffer.type(), GL_FALSE, 0, nullptr);
 
     return 0;
+}
+
+template<>
+int CGLVertexArray::attach_buffer_to_attribute(int attribute_index, int num_components, CGLBuffer<float, GL_FLOAT>& buffer, GLsizei stride, const void* ptr)
+{
+    ASSERT(m_vao);
+
+#ifdef DEBUG
+    log(LogLevel::INFO, "CGLVertexArray: attaching buffer %s to VAO!\n", buffer.name());
+    log(LogLevel::INFO, "CGLVertexArray: attribute_index = %d, buffer.type_size() = %ld buffer.size() == %ld\n", attribute_index, buffer.type_size(), buffer.size());
+#endif
+    buffer.bind();
+    glEnableVertexAttribArray(attribute_index);
+    glVertexAttribPointer(attribute_index, num_components, buffer.type(), GL_FALSE, stride, ptr); // TODO: Maybe map the number of components per type?
+
+    return 0;
+
 }

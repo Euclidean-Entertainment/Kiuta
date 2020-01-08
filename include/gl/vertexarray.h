@@ -75,7 +75,12 @@ public:
     int attach_buffer(const CGLBuffer<T, gl_type>&);
 
     template<typename T, GLenum gl_type>
-    int attach_buffer(int, CGLBuffer<T, gl_type>&);
+    int attach_buffer(int attribute_index, CGLBuffer<T, gl_type>&);
+
+    // Note: Stride is the offset between the two components (e.g, xyz|uv, <- stride for uv is 3 * sizeof(GLfloat)) and ptr
+    // is the pointer to the first element in our data buffer
+    template<typename T, GLenum gl_type>
+    int attach_buffer_to_attribute(int attribute_index, int num_components, CGLBuffer<T, gl_type>&, GLsizei stride, const void* ptr);
 
 private:
     GLuint m_vao { 0 };
