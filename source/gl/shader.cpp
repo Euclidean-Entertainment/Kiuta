@@ -355,7 +355,7 @@ GLint CShader::set_uniform(const std::string& name, const glm::mat4& mat) const
 {
     GLint loc = get_uniform_loc(name);
 
-    glUniformMatrix4fv(loc, 1, GL_FALSE, &mat[0][0]);
+    glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
     return loc;
 }
 
