@@ -5,34 +5,39 @@
 
 #define BST_DEBUG
 
-namespace LibCommon {
+#include <utility>
 
-template <class T>
+namespace LibCommon
+{
+
+template<class T>
 class CBST final
 {
     struct Node
     {
-        explicit Node(const T& _data) : left(nullptr), right(nullptr), data(_data){}
-        explicit Node(T&& _data) : left(nullptr), right(nullptr), data(std::move(_data)){}
+        explicit Node(const T& _data)
+        : left(nullptr), right(nullptr), data(_data) {}
+        explicit Node(T&& _data)
+        : left(nullptr), right(nullptr), data(std::move(_data)) {}
         Node* left;
         Node* right;
         T data;
     };
 
 public:
-    CBST(){}
-    ~CBST(){}
+    CBST() {}
+    ~CBST() {}
 
     void insert(const T& data)
     {
         Node* new_node = new Node(data);
-        
+
         if(m_root == nullptr)
         {
             m_root = new_node;
             return;
         }
-        
+
         Node* node = m_root;
         while(true)
         {
@@ -68,13 +73,13 @@ public:
     void insert(T&& data)
     {
         Node* new_node = new Node(data);
-        
+
         if(m_root == nullptr)
         {
             m_root = new_node;
             return;
         }
-        
+
         Node* node = m_root;
         while(true)
         {
@@ -109,12 +114,10 @@ public:
 
     void remove(const T& key)
     {
-
     }
 
     void remove(T&& key)
     {
-
     }
 
     T& find(const T& key, Node* node = root_node())
@@ -124,7 +127,7 @@ public:
 
         if(key < node->data)
             return find(key, node->left);
-        
+
         return find(key, node->right);
     }
 
@@ -134,4 +137,4 @@ public:
 private:
     Node* m_root { nullptr };
 };
-}
+} // namespace LibCommon

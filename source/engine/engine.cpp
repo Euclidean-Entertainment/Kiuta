@@ -2,11 +2,11 @@
  * 
  */
 #include "engine/engine.h"
+
 #include "common/die.h"
-#include "graphics/bgtexture.h"
-#include "gl/vertexarray.h"
 #include "gl/buffer.h"
 #include "gl/shader.h"
+#include "gl/vertexarray.h"
 #include "render/renderer.h"
 #include "types/vertex.hpp"
 
@@ -25,39 +25,29 @@ void CEngine::init()
     main_loop();
 }
 
-Vertex data[] = 
-{
-    {    
-        -1.0f, 1.0f, 
-        0.0f, 1.0f
-    },
-    {    
-        -1.0f, -1.0f,
-        0.0f, 0.0f 
-    },
-    {    
-        1.0f, -1.0f,
-        1.0f, 0.0f
-    }
+Vertex data[] = {
+    { -1.0f, 1.0f,
+      0.0f, 1.0f },
+    { -1.0f, -1.0f,
+      0.0f, 0.0f },
+    { 1.0f, -1.0f,
+      1.0f, 0.0f }
 };
 
 void CEngine::main_loop()
 {
     SDL_Event event;
-    CBackgroundTexture bg1;
-    CMSBitmap bg_bitmap("bmptest.bmp");
     CShader shader;
-    
+
     CGLVertexArray vao;
     CGLBuffer<GLfloat, GL_FLOAT> vbo;
-    
+
     vao.bind();
     vbo.buffer_data(BufferTarget::ARRAY_BUFFER, sizeof(data), reinterpret_cast<void*>(&data), BufferUsage::STATIC_DRAW, 2);
-    vao.attach_buffer_to_attribute(0, 2, vbo , 4 * sizeof(GLfloat), nullptr);
+    vao.attach_buffer_to_attribute(0, 2, vbo, 4 * sizeof(GLfloat), nullptr);
     vao.attach_buffer_to_attribute(1, 2, vbo, 4 * sizeof(GLfloat), reinterpret_cast<void*>(offsetof(Vertex, Vertex::u)));
     vao.unbind();
 
-    bg1.upload(bg_bitmap);
     shader.load("test");
     while(m_running)
     {
@@ -73,7 +63,6 @@ void CEngine::main_loop()
 
         vao.bind();
         shader.bind();
-        bg1.bind();
         shader.set_uniform("tex", 0);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         SDL_GL_SwapWindow(const_cast<SDL_Window*>(m_hwnd.hwnd()));

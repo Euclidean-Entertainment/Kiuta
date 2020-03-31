@@ -21,7 +21,7 @@ ConstructorInitializerIndentWidth: '0'
 ContinuationIndentWidth: '0'
 Cpp11BracedListStyle: 'false'
 IncludeBlocks: Regroup
-IndentCaseLabels: 'true'
+IndentCaseLabels: 'false'
 IndentPPDirectives: BeforeHash
 IndentWidth: '4'
 IndentWrappedFunctionNames: 'true'
