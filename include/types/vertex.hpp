@@ -3,15 +3,14 @@
  */
 #pragma once
 
+#include "math/vec2.h"
+#include "math/vec3.h"
+
 #include <GL/gl.h>
 
 struct Vertex
 {
     //Position
-    GLfloat x { 0.0f };
-    GLfloat y { 0.0f };
-
-    // Texture co-ordinates
-    GLfloat u { 0.0f };
-    GLfloat v { 0.0f};
+    Vec3 position;
+    Vec2 uv;
 };
