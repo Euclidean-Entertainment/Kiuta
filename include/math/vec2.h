@@ -16,16 +16,15 @@ public:
     Vec2(GLfloat x, GLfloat y)
     : m_x(x), m_y(y) {}
 
-    const GLfloat magnitude() const { return sqrt((m_x * m_x) + (m_y * m_y)); }
+    GLfloat magnitude() const { return sqrt((m_x * m_x) + (m_y * m_y)); }
 
-    const GLfloat angle()
+    GLfloat angle()
     {
-        ASSERT(m_x != 0);
         return atan(m_y / m_x);
     }
 
-    const GLfloat x() { return m_x; }
-    const GLfloat y() { return m_y; }
+    GLfloat x() { return m_x; }
+    GLfloat y() { return m_y; }
 
     Vec2 operator+(const Vec2& rhs)
     {
@@ -44,7 +43,6 @@ public:
 
     Vec2 operator/(const GLfloat scalar)
     {
-        ASSERT(scalar != 0);
         return Vec2(m_x / scalar, m_y / scalar);
     }
 
@@ -71,8 +69,6 @@ public:
 
     Vec2& operator/=(const GLfloat scalar)
     {
-        ASSERT(scalar != 0);
-
         m_x /= scalar;
         m_y /= scalar;
         return *this;
